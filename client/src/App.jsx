@@ -1,10 +1,29 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import ResumeBuilder from './pages/ResumeBuilder'
+import Home from './pages/Home'
+import Layout from './pages/Layout'
+import Dashboard from './pages/Dashboard'
+import Preview from './pages/Preview'
+import Login from './pages/Login'
+
+
+
 
 const App = () => {
   return (
-    <div>
-      <h1 class="text-gray-400">Layout pages</h1>
-    </div>
+    <>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='app' element={<Layout />}>
+         <Route index element={<Dashboard />} />
+         <Route path='builder/:resumeId' element={<ResumeBuilder/>} />
+          
+        </Route>
+         <Route path='view/:resumeId' element={<Preview/>}/>
+          <Route path='login' element={<Login/>}/>
+      </Routes>
+    </>
   )
 }
 
