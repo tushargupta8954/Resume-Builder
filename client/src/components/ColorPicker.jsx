@@ -33,7 +33,7 @@ const ColorPicker = ({ selectedColor, onChange }) => { // Added props
             <div 
               key={color.value} 
               className='relative cursor-pointer group flex flex-col items-center' // Added items-center
-              onClick={() => onChange(color.value); setIsOpen(false)}
+              onClick={() => {onChange(color.value); setIsOpen(false)}}
             >
               <div className="relative w-12 h-12 rounded-full border-2 border-transparent group-hover:border-black/25 transition-colors" style={{backgroundColor: color.value}}>
                 {selectedColor === color.value && (
