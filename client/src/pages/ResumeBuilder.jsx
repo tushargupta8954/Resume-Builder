@@ -8,6 +8,7 @@ import TemplateSelector from '../components/TemplateSelector'
 import ColorPicker from '../components/ColorPicker'
 import ProfessionalSummaryForm from '../components/ProfessionalSummaryForm'
 import ExperienceForm from '../components/ExperienceForm'
+import EducationForm from '../components/EducationForm'
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams()
@@ -92,18 +93,24 @@ const ResumeBuilder = () => {
               </div>
 
               {/* Form Content */}
+
               <div className='space-y-6'>
+
                 {activeSection.id === 'personal' && (
                   <PersonalInfoForm data={resumeData.personal_info} onChange={(data)=> setResumeData(prev => ({...prev, personal_info:data}))} removeBackground={removeBackground} setRemoveBackground={setRemoveBackground} />
                 )}
+
                 {activeSection.id === 'summary' && (
                   <ProfessionalSummaryForm data={resumeData.professional_summary} onChange={(data)=> setResumeData(prev=> ({...prev, professional_summary: data}))} setResumeData={setResumeData} />
                 )}
+
                 {activeSection.id === 'experience' && (
                   <ExperienceForm data={resumeData.experience} onChange={(data)=> setResumeData(prev=> ({...prev, experience: data}))}  />
                 )}
                 
-                
+                 {activeSection.id === 'education' && (
+                  <EducationForm data={resumeData.education} onChange={(data)=> setResumeData(prev=> ({...prev, education: data}))}  />
+                )}
 
               </div>
             </div>
