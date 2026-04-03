@@ -10,6 +10,7 @@ import ProfessionalSummaryForm from '../components/ProfessionalSummaryForm'
 import ExperienceForm from '../components/ExperienceForm'
 import EducationForm from '../components/EducationForm'
 import ProjectForm from '../components/ProjectForm'
+import SkillsFrom from '../components/SkillsFrom'
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams()
@@ -80,7 +81,7 @@ const ResumeBuilder = () => {
 
                 <div className='flex items-center'>
                   {activeSectionIndex !==0 &&(
-                    <button onClick={()=> setActiveSectionIndex((prevIndex)=> Math.max(prevIndex - 1,0))} className='flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all' disabled={activeSectionIndex}>
+                    <button onClick={()=> setActiveSectionIndex((prevIndex)=> Math.max(prevIndex - 1,0))} className='flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all' disabled={activeSectionIndex ===0}>
                       <ChevronLeft className='size-4'/>Previous
                     </button>
                   )}
@@ -117,7 +118,14 @@ const ResumeBuilder = () => {
                   <ProjectForm data={resumeData.project} onChange={(data)=> setResumeData(prev=> ({...prev, project: data}))}  />
                 )}
 
+                {activeSection.id === 'skills' && (
+                  <SkillsFrom data={resumeData.skills} onChange={(data)=> setResumeData(prev=> ({...prev, skills: data}))}  />
+                )}
+
               </div>
+              <button className='bg-gradient-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-6 text-sm '>
+                Save Changes
+              </button>
             </div>
           </div>
 
