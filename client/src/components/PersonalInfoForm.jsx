@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, Globe, Icon, Linkedin, Mail, MapPin, Phone, User, UserIcon } from 'lucide-react'
+import { BriefcaseBusiness, Globe, Linkedin, Mail, MapPin, Phone, User, UserIcon } from 'lucide-react'
 import React from 'react'
 
 const PersonalInfoForm = ({data, onChange, removeBackground, setRemoveBackground}) => {
@@ -54,7 +54,7 @@ const PersonalInfoForm = ({data, onChange, removeBackground, setRemoveBackground
         {fields.map((field)=>{
             const Icon = field.icon;
             return (
-                <div key={field.icon} className='space-y-1 mt-5 '>
+                <div key={field.key} className='space-y-1 mt-5 '>
                     <label className='flex items-center gap-2 text-sm font-medium text-gray-600 '>
                         <Icon className='size-4' />
                         {field.label}

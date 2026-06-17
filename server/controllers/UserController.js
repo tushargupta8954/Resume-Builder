@@ -32,11 +32,12 @@ export const registerUser = async (req, res) =>{
             name, email, password: hashedPassword
         })  
 
-        // return succes message
+        // return success message
         const token = generateToken(newUser._id)
-        newUser.password = undefined;
+        const userWithoutPassword = newUser.toObject();
+        delete userWithoutPassword.password;
 
-        return res.status(201).json({message: 'User created successfully', token, user: newUser})
+        return res.status(201).json({message: 'User created successfully', token, user: userWithoutPassword})
 
     } catch (error){
         return res.status(400).json({message: error.message})
@@ -51,7 +52,7 @@ export const loginUser = async (req, res) =>{
     try {
         const { email, password}= req.body;
 
-        // check if user  exists
+        // check if user exists
         const user = await User.findOne({email})
         if(!user){
             return res.status(400).json({message: 'Invalid email or password'})
@@ -63,11 +64,11 @@ export const loginUser = async (req, res) =>{
         }
 
         // return success message
-        
         const token = generateToken(user._id)
-        user.password = undefined;
+        const userWithoutPassword = user.toObject();
+        delete userWithoutPassword.password;
 
-        return res.status(200).json({message: 'Login successfully', token, user})
+        return res.status(200).json({message: 'Login successfully', token, user: userWithoutPassword})
 
     } catch (error){
         return res.status(400).json({message: error.message})
@@ -75,7 +76,7 @@ export const loginUser = async (req, res) =>{
 }
 
 // controller for getting user by id
-// POST: /api/users/data
+// GET: /api/users/data
 
 export const getUserById = async (req, res) =>{
     try {
@@ -83,14 +84,13 @@ export const getUserById = async (req, res) =>{
         
         // check if user exists
         const user = await User.findById(userId)
-            if(!user){
-                return res.status(400).json({message: 'User not found'})
-
-            }
-            // return user
-            user.password = undefined;
-            return res.status(200).json({user})
-
+        if(!user){
+            return res.status(404).json({message: 'User not found'})
+        }
+        // return user
+        const userWithoutPassword = user.toObject();
+        delete userWithoutPassword.password;
+        return res.status(200).json({user: userWithoutPassword})
         
     } catch (error){
         return res.status(400).json({message: error.message})
@@ -110,4 +110,3 @@ export const getUserResumes = async (req, res)=>{
         return res.status(400).json({message: error.message})
     }
 }
-
